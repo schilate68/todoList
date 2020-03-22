@@ -9,21 +9,18 @@
 
 <body>
 
-
-    <h1 style="color: purple"><%= typeOfDay %></h1>
+    <h1><%= typeOfDay %></h1>
     
     <ul>
-        <li>Breakfast</li>
-        <li>Study</li>
-        <li>Clean</li>
-        <li> <%= newItemVar %></li>
+        <% for (let i = 0; i < newItemVar.length; i++ ) {%>
+            <li> <%= newItemVar[i] %></li>
+        <%}%>
     </ul>
 
     <form action="/" method="post">
         <input type="text" name="itemNew">
         <button type="submit">Add</button>
     </form>
-
 
 </body>
 
