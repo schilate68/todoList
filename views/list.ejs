@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+
+<body>
+
+
+    <h1 style="color: purple"><%= typeOfDay %></h1>
+    
+    <ul>
+        <li>Breakfast</li>
+        <li>Study</li>
+        <li>Clean</li>
+        <li> <%= newItemVar %></li>
+    </ul>
+
+    <form action="/" method="post">
+        <input type="text" name="itemNew">
+        <button type="submit">Add</button>
+    </form>
+
+
+</body>
+
+</html>
