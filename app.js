@@ -1,30 +1,56 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-let newItems = [];
+const date = require(__dirname + "/date.js");
+
+const newItems = [];
+const workItems = [];
+
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({extended: true }));
+app.use(express.static("public"));
 
 app.get("/", function (req, res) {
 
-   /* let today = new Date();
-    let currentDay = today.getDay();
-    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    let dayName = days[today.getDay()];
-    res.render("list", { typeOfDay: dayName });*/
-    let options = { weekday: 'long', month: 'long', day: 'numeric' };
-    let today = new Date();
-    let dayName = today.toLocaleDateString("en-US", options)
-    res.render("list", { typeOfDay: dayName, newItemVar: newItems });
+    const dayName = date.getDate();
+
+    
+    res.render("list", { title: dayName, newItemVar: newItems });
 });
 
 app.post("/", function(req, res){
+    
+    
+    const newItem = req.body.itemNew;
 
-    let newItem = req.body.itemNew;
-    newItems.push(newItem);
-    res.redirect("/");
-     
+    if (req.body.list === "Work"){
+        workItems.push(newItem);
+        res.redirect("/work");
+
+    }else {
+        newItems.push(newItem);
+        res.redirect("/");
+    }
+
+});
+
+app.get("/work", function(req, res){
+    res.render("list", { title: "Work", newItemVar: workItems });
+
+});
+
+app.post("/work", function(req, res){
+    const newItem = req.body.itemNew;
+    workItems.push(newItem);
+    res.redirect("/work");
+
+});
+
+app.get("/about", function(req, res){
+
+    res.render("about");
 
 });
 
